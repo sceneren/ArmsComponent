@@ -41,39 +41,20 @@ import me.jessyan.armscomponent.zhihu.mvp.model.entity.DailyListBean;
  */
 public class ZhihuHomeItemHolder extends BaseHolder<DailyListBean.StoriesBean> {
 
-    @BindView(R2.id.iv_avatar)
-    ImageView mAvatar;
     @BindView(R2.id.tv_name)
     TextView mName;
-    private AppComponent mAppComponent;
-    private ImageLoader mImageLoader;//用于加载图片的管理类,默认使用 Glide,使用策略模式,可替换框架
 
     public ZhihuHomeItemHolder(View itemView) {
         super(itemView);
-        //可以在任何可以拿到 Context 的地方,拿到 AppComponent,从而得到用 Dagger 管理的单例对象
-        mAppComponent = ArmsUtils.obtainAppComponentFromContext(itemView.getContext());
-        mImageLoader = mAppComponent.imageLoader();
     }
 
     @Override
     public void setData(DailyListBean.StoriesBean data, int position) {
-        Observable.just(data.getTitle())
-                .subscribe(s -> mName.setText(s));
-
-        //itemView 的 Context 就是 Activity, Glide 会自动处理并和该 Activity 的生命周期绑定
-        mImageLoader.loadImage(itemView.getContext(),
-                CommonImageConfigImpl
-                        .builder()
-                        .url(data.getImages().get(0))
-                        .imageView(mAvatar)
-                        .build());
+        mName.setText("这是模块1：" + position);
     }
 
 
     @Override
     protected void onRelease() {
-        mImageLoader.clear(mAppComponent.application(), CommonImageConfigImpl.builder()
-                .imageViews(mAvatar)
-                .build());
     }
 }

@@ -15,18 +15,12 @@
  */
 package me.jessyan.armscomponent.gank.mvp.ui.holder;
 
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jess.arms.base.BaseHolder;
-import com.jess.arms.di.component.AppComponent;
-import com.jess.arms.http.imageloader.ImageLoader;
-import com.jess.arms.utils.ArmsUtils;
 
 import butterknife.BindView;
-import me.jessyan.armscomponent.commonsdk.imgaEngine.config.CommonImageConfigImpl;
-import me.jessyan.armscomponent.gank.R;
 import me.jessyan.armscomponent.gank.R2;
 import me.jessyan.armscomponent.gank.mvp.model.entity.GankItemBean;
 
@@ -42,36 +36,20 @@ import me.jessyan.armscomponent.gank.mvp.model.entity.GankItemBean;
 public class GankHomeItemHolder extends BaseHolder<GankItemBean> {
 
     @BindView(R2.id.iv_avatar)
-    ImageView mAvatar;
-    private AppComponent mAppComponent;
-    private ImageLoader mImageLoader;//用于加载图片的管理类,默认使用 Glide,使用策略模式,可替换框架
+    TextView mAvatar;
 
     public GankHomeItemHolder(View itemView) {
         super(itemView);
-        //可以在任何可以拿到 Context 的地方,拿到 AppComponent,从而得到用 Dagger 管理的单例对象
-        mAppComponent = ArmsUtils.obtainAppComponentFromContext(itemView.getContext());
-        mImageLoader = mAppComponent.imageLoader();
     }
 
     @Override
     public void setData(GankItemBean data, int position) {
         //itemView 的 Context 就是 Activity, Glide 会自动处理并和该 Activity 的生命周期绑定
-        if (!TextUtils.isEmpty(data.getUrl())) {
-            mImageLoader.loadImage(itemView.getContext(),
-                    CommonImageConfigImpl
-                            .builder()
-                            .url(data.getUrl())
-                            .imageView(mAvatar)
-                            .build());
-        } else {
-            mAvatar.setImageResource(R.mipmap.gank_ic_logo);
-        }
+        mAvatar.setText("这是模块3：" + position);
     }
 
     @Override
     protected void onRelease() {
-        mImageLoader.clear(mAppComponent.application(), CommonImageConfigImpl.builder()
-                .imageViews(mAvatar)
-                .build());
+
     }
 }

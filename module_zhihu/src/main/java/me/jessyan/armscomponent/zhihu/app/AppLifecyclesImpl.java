@@ -17,16 +17,16 @@ package me.jessyan.armscomponent.zhihu.app;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import androidx.annotation.NonNull;
+import androidx.multidex.MultiDex;
 
 import com.jess.arms.base.delegate.AppLifecycles;
-import com.jess.arms.integration.cache.IntelligentCache;
-import com.jess.arms.utils.ArmsUtils;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
+import butterknife.ButterKnife;
 import me.jessyan.armscomponent.zhihu.BuildConfig;
 import me.jessyan.retrofiturlmanager.RetrofitUrlManager;
+import timber.log.Timber;
 
 import static me.jessyan.armscomponent.zhihu.mvp.model.api.Api.ZHIHU_DOMAIN;
 import static me.jessyan.armscomponent.zhihu.mvp.model.api.Api.ZHIHU_DOMAIN_NAME;
@@ -44,24 +44,17 @@ public class AppLifecyclesImpl implements AppLifecycles {
 
     @Override
     public void attachBaseContext(@NonNull Context base) {
-
+        MultiDex.install(base);
     }
 
     @Override
     public void onCreate(@NonNull Application application) {
-        if (LeakCanary.isInAnalyzerProcess(application)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
         //使用 RetrofitUrlManager 切换 BaseUrl
         RetrofitUrlManager.getInstance().putDomain(ZHIHU_DOMAIN_NAME, ZHIHU_DOMAIN);
         //当所有模块集成到宿主 App 时, 在 App 中已经执行了以下代码
-        if (BuildConfig.IS_BUILD_MODULE) {
-            //leakCanary内存泄露检查
-            ArmsUtils.obtainAppComponentFromContext(application).extras()
-                    .put(IntelligentCache.getKeyOfKeep(RefWatcher.class.getName())
-                            , BuildConfig.USE_CANARY ? LeakCanary.install(application) : RefWatcher.DISABLED);
+        if (BuildConfig.LOG_DEBUG) {//Timber初始化
+            Timber.plant(new Timber.DebugTree());
+            ButterKnife.setDebug(true);
         }
     }
 

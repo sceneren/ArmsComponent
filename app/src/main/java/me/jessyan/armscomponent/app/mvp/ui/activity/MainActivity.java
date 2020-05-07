@@ -16,10 +16,11 @@
 package me.jessyan.armscomponent.app.mvp.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.alibaba.android.arouter.facade.annotation.Autowired;
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -90,7 +91,7 @@ public class MainActivity extends BaseActivity {
             mZhihuButton.setEnabled(false);
             return;
         }
-        mZhihuButton.setText(mZhihuInfoService.getInfo().getName());
+        mZhihuButton.setText("模块1");
     }
 
     private void loadGankInfo() {
@@ -99,7 +100,7 @@ public class MainActivity extends BaseActivity {
             mGankButton.setEnabled(false);
             return;
         }
-        mGankButton.setText(mGankInfoService.getInfo().getName());
+        mGankButton.setText("模块3");
     }
 
     private void loadGoldInfo() {
@@ -108,7 +109,7 @@ public class MainActivity extends BaseActivity {
             mGoldButton.setEnabled(false);
             return;
         }
-        mGoldButton.setText(mGoldInfoService.getInfo().getName());
+        mGoldButton.setText("模块2");
     }
 
     @Override

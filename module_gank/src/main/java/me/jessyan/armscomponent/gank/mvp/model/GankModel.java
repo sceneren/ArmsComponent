@@ -53,4 +53,5 @@ public class GankModel extends BaseModel implements GankHomeContract.Model {
                 .obtainRetrofitService(GankService.class)
                 .getGirlList(num, page);
     }
+
 }

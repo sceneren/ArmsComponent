@@ -17,9 +17,13 @@ package me.jessyan.armscomponent.commonsdk.core;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.View;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+
+import org.jetbrains.annotations.NotNull;
 
 import timber.log.Timber;
 
@@ -32,16 +36,16 @@ import timber.log.Timber;
  * <a href="https://github.com/JessYanCoding">Follow me</a>
  * ================================================
  */
-public class FragmentLifecycleCallbacksImpl extends FragmentManager.FragmentLifecycleCallbacks{
+public class FragmentLifecycleCallbacksImpl extends FragmentManager.FragmentLifecycleCallbacks {
 
     @Override
-    public void onFragmentAttached(FragmentManager fm, Fragment f, Context context) {
-        Timber.i(f.toString() + " - onFragmentAttached");
+    public void onFragmentAttached(@NotNull @NonNull FragmentManager fm, Fragment f, @NotNull Context context) {
+        Timber.i("%s - onFragmentAttached", f.toString());
     }
 
     @Override
-    public void onFragmentCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-        Timber.i(f.toString() + " - onFragmentCreated");
+    public void onFragmentCreated(@NotNull FragmentManager fm, Fragment f, Bundle savedInstanceState) {
+        Timber.i("%s - onFragmentCreated", f.toString());
         // 在配置变化的时候将这个 Fragment 保存下来,在 Activity 由于配置变化重建时重复利用已经创建的 Fragment。
         // https://developer.android.com/reference/android/app/Fragment.html?hl=zh-cn#setRetainInstance(boolean)
         // 如果在 XML 中使用 <Fragment/> 标签,的方式创建 Fragment 请务必在标签中加上 android:id 或者 android:tag 属性,否则 setRetainInstance(true) 无效
@@ -50,52 +54,52 @@ public class FragmentLifecycleCallbacksImpl extends FragmentManager.FragmentLife
     }
 
     @Override
-    public void onFragmentViewCreated(FragmentManager fm, Fragment f, View v, Bundle savedInstanceState) {
-        Timber.i(f.toString() + " - onFragmentViewCreated");
+    public void onFragmentViewCreated(@NotNull FragmentManager fm, Fragment f, @NotNull View v, Bundle savedInstanceState) {
+        Timber.i("%s - onFragmentViewCreated", f.toString());
     }
 
     @Override
-    public void onFragmentActivityCreated(FragmentManager fm, Fragment f, Bundle savedInstanceState) {
-        Timber.i(f.toString() + " - onFragmentActivityCreated");
+    public void onFragmentActivityCreated(@NotNull FragmentManager fm, Fragment f, Bundle savedInstanceState) {
+        Timber.i("%s - onFragmentActivityCreated", f.toString());
     }
 
     @Override
-    public void onFragmentStarted(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentStarted");
+    public void onFragmentStarted(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentStarted", f.toString());
     }
 
     @Override
-    public void onFragmentResumed(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentResumed");
+    public void onFragmentResumed(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentResumed", f.toString());
     }
 
     @Override
-    public void onFragmentPaused(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentPaused");
+    public void onFragmentPaused(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentPaused", f.toString());
     }
 
     @Override
-    public void onFragmentStopped(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentStopped");
+    public void onFragmentStopped(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentStopped", f.toString());
     }
 
     @Override
-    public void onFragmentSaveInstanceState(FragmentManager fm, Fragment f, Bundle outState) {
-        Timber.i(f.toString() + " - onFragmentSaveInstanceState");
+    public void onFragmentSaveInstanceState(@NotNull FragmentManager fm, Fragment f, @NotNull Bundle outState) {
+        Timber.i("%s - onFragmentSaveInstanceState", f.toString());
     }
 
     @Override
-    public void onFragmentViewDestroyed(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentViewDestroyed");
+    public void onFragmentViewDestroyed(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentViewDestroyed", f.toString());
     }
 
     @Override
-    public void onFragmentDestroyed(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentDestroyed");
+    public void onFragmentDestroyed(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentDestroyed", f.toString());
     }
 
     @Override
-    public void onFragmentDetached(FragmentManager fm, Fragment f) {
-        Timber.i(f.toString() + " - onFragmentDetached");
+    public void onFragmentDetached(@NotNull FragmentManager fm, Fragment f) {
+        Timber.i("%s - onFragmentDetached", f.toString());
     }
 }
